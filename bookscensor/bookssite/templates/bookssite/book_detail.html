@@ -1,0 +1,45 @@
+{% extends 'bookssite/base.html' %}
+{% block content %}
+
+
+<h1>{{ object.title }}</h1>
+<p>{{ object.description }}</p>
+<p> {{ object.author }}</p>
+
+{% if user.is_authenticated %}
+<h2>Leave a review</h2>
+<div>
+    <form method="post">{% csrf_token %}
+{{ form.as_p }}
+    <input type="submit" value="Make the review">
+</form>
+</div>
+{% else %}
+<p style="color:red;">If you want to write a review, please <a href="{% url 'accounts:login' %}">Log in</a> or make a registration <a href="{% url 'accounts:registration' %}">Registration</a></p>
+{% endif %}
+
+
+<h2>Reviews</h2>
+{% for review in review_list %}
+
+<div class="box">
+    <div class="profile">
+       <div class="rating">
+           {{ review.rating }}
+    </div>
+        <div class="bio">
+            <h2>{{ review.user }}</h2> <h4>published: {{ review.review_create}}  </h4>
+        </div>
+    </div>
+    {% if request.user ==  review.user %}
+    <a href="{% url 'review_update' review.id %}"> update </a> | <a href="{% url 'review_delete' review.id %}">delete</a>
+    {% endif %}
+    <div class="review">
+        {{ review.review }}
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
+

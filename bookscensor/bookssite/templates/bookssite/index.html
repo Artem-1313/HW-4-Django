@@ -1,0 +1,24 @@
+{% extends 'bookssite/base.html' %}
+{% block content %}
+<div style="">
+<a href="{% url 'accounts:registration' %}">Registration</a> |
+<a href="{% url 'accounts:login' %}">Log in</a>
+</div>
+<br>
+<div>
+{% if user.is_authenticated %}
+Hello, <b>{{ user }}!</b> You are in the site!
+ <a href="{% url 'accounts:logout' %}">Log out!</a>
+{% else %}
+You aren't in the site!
+{% endif %}
+</div>
+
+{% for book in object_list %}
+<p>
+ {{ book }}
+ <a href="{% url 'book_detail' book.id %}">Detail...</a>
+</p>
+{% endfor %}
+
+{% endblock content %}

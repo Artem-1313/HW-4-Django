@@ -1,0 +1,11 @@
+{% extends 'bookssite/base.html' %}
+{% block content %}
+
+<form action="" method="POST" style="border:2px solid black; width:50%;">
+   {% csrf_token %}
+
+  {{ form.as_p }}
+<input type="submit" value="Submit">
+
+</form>
+{% endblock content %}

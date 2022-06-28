@@ -1,0 +1,12 @@
+{% extends 'bookssite/base.html' %}
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete the review? "{{ object }}"?</p>
+
+    <input type="submit" value="Yes">
+    <a type="button" href="{% url 'book_detail' object.book.id %}">No</a>
+</form>
+{% endblock content %}
+
+
